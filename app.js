@@ -7,8 +7,6 @@ const port = 5000;
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
 
-app.use(cors());
-
 connect();
 
 const usersRouter = require('./routes/users.route');
@@ -23,7 +21,6 @@ const requestMiddleware = (req, res, next) => {
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

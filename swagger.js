@@ -6,7 +6,7 @@ const doc = {
     title: 'Javascript Study',
     description: '항해99 W6 Miniproject',
   },
-  host: '15.165.204.0',
+  host: '3.39.161.93:5000',
   basePath: '/api',
   schemes: ['http'],
   consumes: ['application/json'],
