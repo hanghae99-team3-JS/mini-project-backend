@@ -38,7 +38,7 @@ async function postLogin(req, res) {
 async function postSignup(req, res) {
   // #swagger.tags = ['Users']
   let { email, nickname, password, confirmPassword } = req.body;
-  const { profileImg } = req.cookies;
+  let { profileImg } = req.cookies;
   const schema = validateUser(nickname);
 
   await schema.validateAsync({ email, nickname, password, confirmPassword });
