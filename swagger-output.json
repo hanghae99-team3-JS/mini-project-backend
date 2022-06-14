@@ -5,7 +5,7 @@
     "title": "Javascript Study",
     "description": "항해99 W6 Miniproject"
   },
-  "host": "15.165.204.0",
+  "host": "3.39.161.93:5000",
   "basePath": "/api",
   "tags": [
     {
@@ -47,16 +47,17 @@
         "description": "",
         "parameters": [
           {
-            "name": "category",
-            "in": "query",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
+                "category": {
+                  "example": "any"
+                },
+                "nickname": {
+                  "example": "any"
+                },
                 "title": {
                   "example": "any"
                 },
@@ -78,13 +79,7 @@
           "Posts"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "category",
-            "in": "query",
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -130,6 +125,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "nickname": {
+                  "example": "any"
+                },
                 "title": {
                   "example": "any"
                 },
@@ -240,6 +238,18 @@
             "description": "OK"
           }
         }
+      }
+    },
+    "/profile": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     },
     "/posts/{postId}/comments": {
