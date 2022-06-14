@@ -12,7 +12,7 @@ async function getMyInfo(req, res) {
   const user = await userService.findMyInfo(email);
   const { nickname, profileImg } = user;
 
-  res.send({ success: true, nickname, profileImg });
+  res.send({ success: true, email, nickname, profileImg });
 }
 
 async function postLogin(req, res) {
