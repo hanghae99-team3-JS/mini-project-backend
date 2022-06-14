@@ -1,9 +1,10 @@
 const Users = require('../schemas/user');
+const Tokens = require('../schemas/token');
 const { verifyToken } = require('../functions/verify_token');
 const { issueAccessToken } = require('../functions/issue_token');
 const throwError = require('../functions/throw_error');
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     if (!req.cookies) {
       throwError('토큰이 존재하지 않습니다.', 401);
@@ -11,18 +12,26 @@ module.exports = (req, res, next) => {
 
     const { accessToken, refreshToken } = req.cookies;
 
-    const { userId } = verifyToken(accessToken, function (err, decoded) {
-      if (err) {
-        const { userId } = verifyToken(refreshToken);
-        const accessToken = issueAccessToken(userId);
+    const { userId } = await verifyToken(
+      accessToken,
+      async function (err, decoded) {
+        if (err) {
+          const token = await Tokens.findOne({ refreshToken });
 
-        console.log('엑세스 토큰 재발급');
-        res.cookie('accessToken', accessToken);
+          if (token) {
+            const { userId } = verifyToken(refreshToken);
+            const newAccessToken = issueAccessToken(userId);
 
-        return { userId };
+            console.log('엑세스 토큰 재발급');
+            res.cookie('accessToken', newAccessToken);
+
+            return { userId };
+          }
+          throwError('유효하지 않은 토큰입니다.', 401);
+        }
+        return decoded;
       }
-      return decoded;
-    });
+    );
 
     Users.findById(userId)
       .exec()

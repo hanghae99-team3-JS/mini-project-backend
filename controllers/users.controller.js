@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/users.service');
+const Tokens = require('../schemas/token');
 const validateUser = require('../functions/validate_user');
 const token = require('../functions/issue_token');
 const throwError = require('../functions/throw_error');
@@ -28,6 +29,9 @@ async function postLogin(req, res) {
   const { userId, nickname } = user;
   const accessToken = token.issueAccessToken(userId);
   const refreshToken = token.issueRefreshToken(userId);
+
+  await Tokens.deleteOne({ userId });
+  await Tokens.create({ userId, refreshToken });
 
   res
     .cookie('accessToken', accessToken)
