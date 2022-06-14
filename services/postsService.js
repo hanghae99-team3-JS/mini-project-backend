@@ -17,10 +17,10 @@ exports.addPosts = async (category, nickname, title, content) => {
 };
 
 //게시글 전체 조회
-exports.loockupAllPosts = async (category) => {
+exports.loockupAllPosts = async () => {
   try {
     return await Posts.find(
-      { category },
+      {},
       { _id: 0, postId: 1, nickname: 1, title: 1, date: 1 }
     ).sort({ date: -1 });
   } catch (error) {

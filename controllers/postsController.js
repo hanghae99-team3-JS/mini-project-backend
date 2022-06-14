@@ -57,15 +57,7 @@ async function addPosts(req, res) {
 //게시글 전체 조회 (express-async-errors)
 async function loockupAllPosts(req, res, next) {
   // #swagger.tags = ['Posts']
-  const { category } = req.body;
-
-  const posts = await postsService.loockupAllPosts(category);
-
-  if (!posts.length) {
-    let error = new Error('🔴 올바른 카테고리가 아닙니다');
-    error.status = 404;
-    throw error;
-  }
+  const posts = await postsService.loockupAllPosts();
 
   res.json({
     posts,
