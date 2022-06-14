@@ -23,9 +23,7 @@ const postsService = require('../services/postsService');
 //게시글 작성(wrap)
 async function addPosts(req, res) {
   // #swagger.tags = ['Posts']
-  const { nickname } = res.locals.user;
-  const { title, content } = req.body;
-  const { category } = req.query;
+  const { category, nickname, title, content } = req.body;
 
   if (title === '' || content === '') {
     let error = new Error('🔴 제목 또는 내용을 입력해주세요');
@@ -59,7 +57,7 @@ async function addPosts(req, res) {
 //게시글 전체 조회 (express-async-errors)
 async function loockupAllPosts(req, res, next) {
   // #swagger.tags = ['Posts']
-  const { category } = req.query;
+  const { category } = req.body;
 
   const posts = await postsService.loockupAllPosts(category);
 
@@ -98,9 +96,8 @@ async function loockupDetailPost(req, res, next) {
 async function editPost(req, res, next) {
   // #swagger.tags = ['Posts']
   try {
-    const { nickname } = res.locals.user;
     const { postId } = req.params;
-    const { title, content } = req.body;
+    const { nickname, title, content } = req.body;
 
     await postsService.editPost(nickname, postId, title, content);
 
@@ -118,7 +115,7 @@ async function editPost(req, res, next) {
 async function deletePost(req, res, next) {
   // #swagger.tags = ['Posts']
   try {
-    const { nickname } = res.locals.user;
+    const { nickname } = res.body;
     const { postId } = req.params;
 
     await postsService.deletePost(nickname, postId);
