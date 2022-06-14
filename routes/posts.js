@@ -7,7 +7,7 @@ require('express-async-errors');
 
 //게시글 작성
 // router.post('/posts', auth, wrap(postsController.addPosts));
-router.post('/posts', auth, postsController.addPosts);
+router.post('/posts', postsController.addPosts);
 
 //게시글 전체 조회
 router.get('/posts', postsController.loockupAllPosts);

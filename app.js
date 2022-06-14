@@ -12,6 +12,7 @@ connect();
 const usersRouter = require('./routes/users.route');
 const commentsRouter = require('./routes/comments');
 const postsRouter = require('./routes/posts');
+const testRouter = require('./routes/test');
 
 const requestMiddleware = (req, res, next) => {
   console.log('request URL:', req.originalUrl, '-', new Date());
@@ -21,12 +22,13 @@ const requestMiddleware = (req, res, next) => {
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(requestMiddleware);
 
-app.use('/api', [usersRouter, postsRouter, commentsRouter]);
+app.use('/api', [usersRouter, postsRouter, commentsRouter, testRouter]);
 
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
