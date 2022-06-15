@@ -18,7 +18,10 @@ async function getMyInfo(req, res) {
 
 async function postProfileImg(req, res) {
   // #swagger.tags = ['Users']
+  const { nickname } = req.params;
   const profileImg = req.file.key;
+
+  await userService.updateProfileImg(nickname, profileImg);
 
   res.json({ success: true, profileImg: process.env.S3_URL + profileImg });
 }
@@ -61,7 +64,7 @@ async function postSignup(req, res) {
 
   password = bcrypt.hashSync(password, 10);
 
-  await userService.createUser(email, nickname, password, profileImg);
+  await userService.createUser(email, nickname, password);
 
   return res.json({ success: true, message: '회원 가입이 완료되었습니다.' });
 }

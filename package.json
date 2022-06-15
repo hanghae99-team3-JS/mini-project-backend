@@ -35,7 +35,8 @@
     "multer-s3": "^2.9.0",
     "redis": "^4.1.0",
     "swagger-autogen": "^2.21.3",
-    "swagger-ui-express": "^4.4.0"
+    "swagger-ui-express": "^4.4.0",
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "prettier": "^2.6.2"

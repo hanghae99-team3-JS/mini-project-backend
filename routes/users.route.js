@@ -9,7 +9,11 @@ const router = express.Router();
 
 router.get('/myInfo', auth, userController.getMyInfo);
 
-router.post('/myInfo', upload.single('image'), userController.postProfileImg);
+router.post(
+  '/myInfo/:nickname',
+  upload.single('image'),
+  userController.postProfileImg
+);
 
 router.post('/login', userController.postLogin);
 
