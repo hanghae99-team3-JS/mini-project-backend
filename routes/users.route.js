@@ -19,6 +19,4 @@ router.post('/login', userController.postLogin);
 
 router.post('/signup', userController.postSignup);
 
-router.get('/profile', userController.getProfileImg);
-
 module.exports = router;

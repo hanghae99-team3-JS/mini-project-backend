@@ -4,6 +4,7 @@ const Tokens = require('../schemas/token');
 const validateUser = require('../functions/validate_user');
 const token = require('../functions/issue_token');
 const throwError = require('../functions/throw_error');
+const logger = require('../functions/winston');
 
 require('dotenv').config();
 
@@ -12,6 +13,8 @@ async function getMyInfo(req, res) {
   const { email } = res.locals.user;
   const user = await userService.findMyInfo(email);
   const { nickname, profileImg } = user;
+
+  logger.info(`${nickname} - 프로필 확인`);
 
   res.send({ success: true, email, nickname, profileImg });
 }
@@ -22,6 +25,8 @@ async function postProfileImg(req, res) {
   const profileImg = req.file.key;
 
   await userService.updateProfileImg(nickname, profileImg);
+
+  logger.info(`${nickname} - 프로필 업데이트`);
 
   res.json({ success: true, profileImg: process.env.S3_URL + profileImg });
 }
@@ -42,6 +47,8 @@ async function postLogin(req, res) {
 
   await Tokens.deleteOne({ userId });
   await Tokens.create({ userId, refreshToken });
+
+  logger.info(`${nickname} - 로그인`);
 
   res
     .cookie('accessToken', accessToken)
@@ -66,11 +73,9 @@ async function postSignup(req, res) {
 
   await userService.createUser(email, nickname, password);
 
-  return res.json({ success: true, message: '회원 가입이 완료되었습니다.' });
-}
+  logger.info(`${nickname} - 회원가입`);
 
-async function getProfileImg(req, res) {
-  res.render('image.html');
+  return res.json({ success: true, message: '회원 가입이 완료되었습니다.' });
 }
 
 module.exports = {
@@ -78,5 +83,4 @@ module.exports = {
   postProfileImg,
   postLogin,
   postSignup,
-  getProfileImg,
 };

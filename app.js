@@ -2,10 +2,11 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connect = require('./schemas');
-const app = express();
-const port = 5000;
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
+const port = 5000;
+
+const app = express();
 
 connect();
 
@@ -18,9 +19,6 @@ const requestMiddleware = (req, res, next) => {
   console.log('request URL:', req.originalUrl, '-', new Date());
   next();
 };
-
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'ejs');
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
