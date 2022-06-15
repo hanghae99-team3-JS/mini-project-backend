@@ -93,7 +93,7 @@ async function editPost(req, res, next) {
 
     await postsService.editPost(nickname, postId, title, content);
 
-    res.json({ success: true });
+    res.json({ success: true, title, content, id: 'id' });
   } catch (error) {
     next({
       message: error.serviceError || '게시글 수정 실패🔴',
