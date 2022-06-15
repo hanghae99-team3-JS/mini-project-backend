@@ -1,22 +1,14 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
+const Posts = require('../schemas/posts');
 const Comments = require('../schemas/comments');
 const AutoIncrement = require('mongoose-sequence');
-/* const Joi = require('joi'); */
 const router = express.Router();
 
-/* const commentSchema = Joi.object({
-  comment: Joi.string().required(),
-});
- */
 //댓글 조회
-router.get('/posts/:postId/comments', async (req, res) => {
-  // #swagger.tags = ['Comments']
+router.get('/posts/:postId/comment', async (req, res) => {
   const { postId } = req.params;
-  const comments = await Comments.find({ postId: Number(postId) }).sort({
-    date: -1,
-  });
-  console.log(comments);
+  const comments = await Comments.find({ postId }).sort({ date: -1 });
   res.json({
     comments,
   });
@@ -24,11 +16,11 @@ router.get('/posts/:postId/comments', async (req, res) => {
 
 //댓글 작성
 router.post('/posts/:postId/comment', auth, async (req, res) => {
-  // #swagger.tags = ['Comments']
   try {
     const { nickname } = res.locals.user;
     const { postId } = req.params;
     const { comment } = req.body;
+    console.log(req.body);
 
     if (comment === '') {
       res.status(400).send({
@@ -37,12 +29,14 @@ router.post('/posts/:postId/comment', auth, async (req, res) => {
       return;
     }
 
-    const maxCommentId = await Comments.findOne().sort('-commentId').exec();
+    const lastComment = await Comments.findOne().sort('-commentId').exec();
     let commentId = 1;
 
-    if (maxCommentId) commentId = maxCommentId.commentId + 1;
+    if (lastComment) {
+      commentId = lastComment.commentId + 1;
+    }
 
-    await Comments.create({
+    const createdComments = await Comments.create({
       commentId,
       postId,
       nickname,
@@ -61,7 +55,6 @@ router.post('/posts/:postId/comment', auth, async (req, res) => {
 
 //댓글 수정
 router.put('/posts/:postId/comment/:commentId', auth, async (req, res) => {
-  // #swagger.tags = ['Comments']
   const { nickname } = res.locals.user;
   const { commentId } = req.params;
   const { comment } = req.body;
@@ -82,7 +75,6 @@ router.put('/posts/:postId/comment/:commentId', auth, async (req, res) => {
 
 //댓글 삭제
 router.delete('/posts/:postId/comment/:commentId', auth, async (req, res) => {
-  // #swagger.tags = ['Comments']
   const { nickname } = res.locals.user;
   const { commentId } = req.params;
   const { comment } = req.body;
@@ -98,7 +90,7 @@ router.delete('/posts/:postId/comment/:commentId', auth, async (req, res) => {
 
   res.json({
     success: true,
-    msg: '삭제되었습니다.',
+    msg: '삭제 되었습니다.',
   });
 });
 
