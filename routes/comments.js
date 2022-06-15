@@ -20,7 +20,6 @@ router.post('/posts/:postId/comment', auth, async (req, res) => {
     const { nickname } = res.locals.user;
     const { postId } = req.params;
     const { comment } = req.body;
-    console.log(req.body);
 
     if (comment === '') {
       res.status(400).send({
