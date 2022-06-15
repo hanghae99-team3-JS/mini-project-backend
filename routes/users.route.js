@@ -9,12 +9,12 @@ const router = express.Router();
 
 router.get('/myInfo', auth, userController.getMyInfo);
 
+router.post('/myInfo', upload.single('image'), userController.postProfileImg);
+
 router.post('/login', userController.postLogin);
 
 router.post('/signup', userController.postSignup);
 
 router.get('/profile', userController.getProfileImg);
-
-router.post('/profile', upload.single('image'), userController.postProfileImg);
 
 module.exports = router;

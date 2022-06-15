@@ -16,9 +16,9 @@ router.get('/posts', postsController.loockupAllPosts);
 router.get('/posts/:postId', postsController.loockupDetailPost);
 
 //게시글 수정
-router.put('/posts/:postId', auth, postsController.editPost);
+router.put('/posts/:postId', postsController.editPost);
 
 //게시글 삭제
-router.delete('/posts/:postId', auth, postsController.deletePost);
+router.delete('/posts/:postId', postsController.deletePost);
 
 module.exports = router;
