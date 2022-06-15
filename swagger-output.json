@@ -155,6 +155,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickname": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -171,6 +183,27 @@
         ],
         "description": "",
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/myInfo/{nickname}": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "nickname",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -240,23 +273,8 @@
         }
       }
     },
-    "/profile": {
+    "/posts/{postId}/comment": {
       "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/posts/{postId}/comments": {
-      "get": {
-        "tags": [
-          "Comments"
-        ],
         "description": "",
         "parameters": [
           {
@@ -271,13 +289,8 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/posts/{postId}/comment": {
+      },
       "post": {
-        "tags": [
-          "Comments"
-        ],
         "description": "",
         "parameters": [
           {
@@ -311,9 +324,6 @@
     },
     "/posts/{postId}/comment/{commentId}": {
       "put": {
-        "tags": [
-          "Comments"
-        ],
         "description": "",
         "parameters": [
           {
@@ -351,9 +361,6 @@
         }
       },
       "delete": {
-        "tags": [
-          "Comments"
-        ],
         "description": "",
         "parameters": [
           {
