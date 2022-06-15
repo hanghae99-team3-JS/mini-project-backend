@@ -107,7 +107,7 @@ async function editPost(req, res, next) {
 async function deletePost(req, res, next) {
   // #swagger.tags = ['Posts']
   try {
-    const { nickname } = res.body;
+    const { nickname } = req.body;
     const { postId } = req.params;
 
     await postsService.deletePost(nickname, postId);

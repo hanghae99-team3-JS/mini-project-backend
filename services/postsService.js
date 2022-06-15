@@ -61,6 +61,7 @@ exports.editPost = async (nickname, postId, title, content) => {
 exports.deletePost = async (nickname, postId) => {
   try {
     const checkNickname = await Posts.findOne({ postId: Number(postId) });
+
     if (checkNickname['nickname'] !== nickname) {
       res.status(400).send({
         errorMessage: '본인이 작성한 게시글이 아닙니다.',
