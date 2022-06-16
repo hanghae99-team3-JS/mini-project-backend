@@ -8,6 +8,7 @@ const logger = require('../functions/winston');
 
 require('dotenv').config();
 
+// 프로필 조회
 async function getMyInfo(req, res) {
   // #swagger.tags = ['Users']
   const { email } = res.locals.user;
@@ -24,6 +25,7 @@ async function getMyInfo(req, res) {
   res.send({ success: true, email, nickname, profileImg });
 }
 
+// 프로필 사진 등록
 async function postProfileImg(req, res) {
   // #swagger.tags = ['Users']
   const { nickname } = req.params;
@@ -36,6 +38,7 @@ async function postProfileImg(req, res) {
   res.json({ success: true, profileImg: process.env.S3_URL + profileImg });
 }
 
+// 로그인
 async function postLogin(req, res) {
   // #swagger.tags = ['Users']
   const { email, password } = req.body;
@@ -61,6 +64,7 @@ async function postLogin(req, res) {
     .json({ success: true, email, nickname });
 }
 
+// 로그아웃
 async function postLogout(req, res) {
   // #swagger.tags = ['Users']
   res
@@ -69,6 +73,7 @@ async function postLogout(req, res) {
     .json({ success: true, message: '로그아웃 완료' });
 }
 
+// 회원가입
 async function postSignup(req, res) {
   // #swagger.tags = ['Users']
   let { email, nickname, password, confirmPassword } = req.body;
