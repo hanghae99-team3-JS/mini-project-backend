@@ -11,6 +11,7 @@ router.get('/myInfo', auth, userController.getMyInfo);
 
 router.post(
   '/myInfo/:nickname',
+  auth,
   upload.single('image'),
   userController.postProfileImg
 );
