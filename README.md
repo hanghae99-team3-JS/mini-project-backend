@@ -33,5 +33,5 @@
 - Prettier로 프로젝트 코드 스타일 관리
 
 ## 4. 회고
-김성준 : https://hzcd108.tistory.com/26
+김성준 : https://hzcd108.tistory.com/26   
 최다혜 : 
