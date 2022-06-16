@@ -4,6 +4,10 @@ const throwError = require('../functions/throw_error');
 require('dotenv').config();
 
 function verifyToken(token, callback = null) {
+  if (!token) {
+    throwError('토큰이 존재하지 않습니다.', 401);
+  }
+
   const [tokenType, tokenValue] = token.split(' ');
 
   if (tokenType !== 'Bearer') {

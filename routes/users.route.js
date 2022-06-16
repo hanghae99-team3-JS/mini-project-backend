@@ -17,6 +17,8 @@ router.post(
 
 router.post('/login', userController.postLogin);
 
+router.post('/logout', userController.postLogout);
+
 router.post('/signup', userController.postSignup);
 
 module.exports = router;

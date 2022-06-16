@@ -56,6 +56,14 @@ async function postLogin(req, res) {
     .json({ success: true, email, nickname });
 }
 
+async function postLogout(req, res) {
+  // #swagger.tags = ['Users']
+  res
+    .clearCookie('accessToken')
+    .clearCookie('refreshToken')
+    .json({ success: true, message: '로그아웃 완료' });
+}
+
 async function postSignup(req, res) {
   // #swagger.tags = ['Users']
   let { email, nickname, password, confirmPassword } = req.body;
@@ -82,5 +90,6 @@ module.exports = {
   getMyInfo,
   postProfileImg,
   postLogin,
+  postLogout,
   postSignup,
 };

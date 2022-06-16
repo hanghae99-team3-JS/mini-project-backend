@@ -4,7 +4,7 @@ function issueAccessToken(userId) {
   return (
     'Bearer ' +
     jwt.sign({ userId }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '20s',
+      expiresIn: '30m',
     })
   );
 }
@@ -13,7 +13,7 @@ function issueRefreshToken(userId) {
   return (
     'Bearer ' +
     jwt.sign({ userId }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '10m',
+      expiresIn: '3h',
     })
   );
 }

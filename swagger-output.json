@@ -237,6 +237,16 @@
         "responses": {}
       }
     },
+    "/logout": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/signup": {
       "post": {
         "tags": [
