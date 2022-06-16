@@ -59,8 +59,14 @@ async function postLogin(req, res) {
   logger.info(`${nickname} - 로그인`);
 
   res
-    .cookie('accessToken', accessToken)
-    .cookie('refreshToken', refreshToken)
+    .cookie('accessToken', accessToken, {
+      httpOnly: true,
+      sameSite: 'none',
+    })
+    .cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      sameSite: 'none',
+    })
     .json({ success: true, email, nickname });
 }
 
