@@ -1,7 +1,7 @@
 const logger = require('../functions/winston');
 
 function throwError(message, status) {
-  logger.info(`${nickname} - 프로필 확인`);
+  logger.error(message);
 
   const error = new Error(message);
 

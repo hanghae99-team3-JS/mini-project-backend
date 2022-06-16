@@ -12,6 +12,11 @@ async function getMyInfo(req, res) {
   // #swagger.tags = ['Users']
   const { email } = res.locals.user;
   const user = await userService.findMyInfo(email);
+
+  if (!user) {
+    throwError(401, '회원 정보를 찾을 수 없습니다.');
+  }
+
   const { nickname, profileImg } = user;
 
   logger.info(`${nickname} - 프로필 확인`);
